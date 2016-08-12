@@ -4,7 +4,7 @@ public class Queue<T>{
 
 	LLNode<T> tail;
 	private int size;
-	
+
 	public Queue(){
 		size=0;
 		tail=null;
@@ -16,21 +16,29 @@ public class Queue<T>{
 	}
 	public void print(){
 
-		if(this.tail==null){
+		if(this.tail==null){ //empty
 			return;
 		}
-		LLNode<T> ptr=this.tail.next;
-		do{
-			System.out.print(ptr.data + " ");
-			ptr=ptr.next;
-		}while(ptr!=tail.next);
-		System.out.println("");
+		if(this.tail.next==tail){ //one node
+			System.out.println(tail.data);
+			return;
+		}
+		else{
+			LLNode<T> ptr = this.tail.next;
+			do{
+				System.out.print(ptr.data+" ");
+				ptr=ptr.next;
+			}while(ptr!=this.tail.next);
+			System.out.println("");
+
+		}
 
 	}
 	public void enqueue(T targ){
 
 		if(this.tail==null){
-			tail = new LLNode<T>(targ,tail);
+			tail = new LLNode<T>(targ,null);
+			tail.next=tail;
 			this.size++;
 			return;
 		}
@@ -39,7 +47,7 @@ public class Queue<T>{
 		ins.next = tail.next;
 		tail.next=ins;
 		tail=ins;
-		
+
 	}
 	public T dequeue(){
 
@@ -59,6 +67,10 @@ public class Queue<T>{
 	}
 	public int size(){
 		return this.size;
+	}
+
+	public boolean empty(){
+		return this.size==0;
 	}
 
 }
